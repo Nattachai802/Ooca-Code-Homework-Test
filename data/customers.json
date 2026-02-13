@@ -1,0 +1,51 @@
+[
+  {
+    "id": "cust_001",
+    "name": "Sarah Chen",
+    "email": "sarah@example.com",
+    "plan": "free",
+    "region": "us",
+    "seats": 1,
+    "tenure_months": 4,
+    "usage_history": [
+      "daily_login",
+      "upgrade_attempted",
+      "export_feature_viewed"
+    ],
+    "previous_tickets": 0,
+    "tags": ["upgrade_attempted", "first_contact"]
+  },
+  {
+    "id": "cust_002",
+    "name": "Somchai Prasert",
+    "email": "somchai@enterprise.co.th",
+    "plan": "enterprise",
+    "region": "asia",
+    "seats": 45,
+    "tenure_months": 8,
+    "usage_history": [
+      "daily_login",
+      "api_integration",
+      "bulk_export",
+      "team_management"
+    ],
+    "previous_tickets": 0,
+    "tags": ["enterprise", "thai_region", "first_critical_issue"]
+  },
+  {
+    "id": "cust_003",
+    "name": "Alex Johnson",
+    "email": "alex@example.com",
+    "plan": "pro",
+    "region": "us",
+    "seats": 1,
+    "tenure_months": 5,
+    "usage_history": [
+      "daily_login",
+      "pro_features_active",
+      "settings_explored"
+    ],
+    "previous_tickets": 0,
+    "tags": ["active_user", "pro_subscriber"]
+  }
+]

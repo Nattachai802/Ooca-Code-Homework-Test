@@ -1,0 +1,26 @@
+{
+  "free": {
+    "label": "Free",
+    "sla_hours": null,
+    "priority": "low",
+    "support_channel": "email",
+    "features": ["basic"],
+    "auto_escalate": false
+  },
+  "pro": {
+    "label": "Pro",
+    "sla_hours": 24,
+    "priority": "medium",
+    "support_channel": "email+chat",
+    "features": ["basic", "pro"],
+    "auto_escalate": false
+  },
+  "enterprise": {
+    "label": "Enterprise",
+    "sla_hours": 4,
+    "priority": "critical",
+    "support_channel": "dedicated",
+    "features": ["basic", "pro", "enterprise"],
+    "auto_escalate": true
+  }
+}

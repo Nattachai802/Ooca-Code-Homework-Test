@@ -1,0 +1,79 @@
+[
+  {
+    "id": "kb_001",
+    "topic": "Payment & Billing - Duplicate Charges",
+    "category": "billing",
+    "content": "If a customer reports duplicate or multiple pending charges, this typically occurs when a payment gateway times out and the transaction is retried. Pending charges usually auto-resolve within 3-5 business days. If charges are fully posted (not pending), a manual refund must be initiated by the billing team. Customers should be advised NOT to dispute charges with their bank until our billing team has reviewed the case, as bank disputes can complicate the refund process.",
+    "applies_to_plans": ["free", "pro", "enterprise"],
+    "guideline": {
+      "action": "escalate",
+      "conditions": "Always escalate billing issues involving duplicate charges or refund requests to the billing specialist team. Financial disputes require human review."
+    }
+  },
+  {
+    "id": "kb_002",
+    "topic": "Account Upgrade - How to Upgrade Plan",
+    "category": "account",
+    "content": "To upgrade your plan, go to Settings > Billing > Change Plan. Select your desired plan and enter payment details. The upgrade takes effect immediately. If the upgrade button is not working, try clearing your browser cache or using an incognito window. Common upgrade issues include: expired payment method, insufficient funds, or regional payment restrictions.",
+    "applies_to_plans": ["free", "pro"],
+    "guideline": {
+      "action": "auto_respond",
+      "conditions": "Can auto-respond if the issue is a simple how-to question about upgrading. If payment fails during upgrade, escalate to billing."
+    }
+  },
+  {
+    "id": "kb_003",
+    "topic": "System Outage - Error 500",
+    "category": "technical",
+    "content": "Error 500 indicates an internal server error. Steps to troubleshoot: 1) Check status.company.com for known outages. 2) Try clearing browser cache and cookies. 3) Try a different browser or incognito mode. 4) Check if the issue is region-specific. If multiple users in the same organization are affected, this likely indicates a service-level issue rather than a client-side problem. For Enterprise customers, our SLA guarantees 4-hour response time for critical issues.",
+    "applies_to_plans": ["free", "pro", "enterprise"],
+    "guideline": {
+      "action": "escalate",
+      "conditions": "Escalate immediately if: Enterprise customer, multiple users affected, or business-critical impact. Route to infrastructure team for region-specific outages."
+    }
+  },
+  {
+    "id": "kb_004",
+    "topic": "Dark Mode - Setup and Configuration",
+    "category": "feature",
+    "content": "Dark mode is available for Pro and Enterprise plans. To enable: go to Settings > Appearance > Theme and select 'Dark'. The 'System Default' option syncs with your OS theme setting. Known issue: On some macOS versions, the 'System Default' option may not correctly detect the OS dark mode setting. Workaround: manually select 'Dark' instead of relying on 'System Default'. This bug is tracked and a fix is planned for the next release (v2.4).",
+    "applies_to_plans": ["pro", "enterprise"],
+    "guideline": {
+      "action": "auto_respond",
+      "conditions": "Auto-respond with the workaround for the System Default bug. If the Dark option is completely missing from the menu, route to the product team as a potential bug."
+    }
+  },
+  {
+    "id": "kb_005",
+    "topic": "Feature Requests - How to Submit",
+    "category": "feature",
+    "content": "We welcome feature requests! Customers can submit ideas through: 1) The in-app feedback widget (Help > Submit Feedback). 2) Our public roadmap at roadmap.company.com where you can also vote on existing requests. Popular requests include: scheduled dark mode, custom themes, and calendar integration. Feature requests are reviewed monthly by the product team.",
+    "applies_to_plans": ["free", "pro", "enterprise"],
+    "guideline": {
+      "action": "auto_respond",
+      "conditions": "Auto-respond with instructions on how to submit feature requests. Thank the customer for their suggestion and mention the public roadmap."
+    }
+  },
+  {
+    "id": "kb_006",
+    "topic": "Enterprise SLA - Service Level Agreement",
+    "category": "account",
+    "content": "Enterprise plan includes: dedicated support channel, 4-hour SLA for critical issues, 24-hour SLA for high-priority issues, dedicated account manager, 99.9% uptime guarantee, and priority access to new features. If an Enterprise customer reports a critical issue (system down, data loss, security incident), it must be escalated immediately to the Enterprise Support Team regardless of the nature of the issue.",
+    "applies_to_plans": ["enterprise"],
+    "guideline": {
+      "action": "escalate",
+      "conditions": "All Enterprise critical issues must be escalated immediately. Response within SLA (4 hours for critical). Assign dedicated support engineer."
+    }
+  },
+  {
+    "id": "kb_007",
+    "topic": "Regional Issues - Asia Pacific",
+    "category": "technical",
+    "content": "The Asia Pacific region (including Thailand, Japan, Singapore, and Australia) is served by our ap-southeast-1 data center. Known regional issues may include: higher latency during peak hours (9AM-6PM ICT/JST), occasional DNS propagation delays after maintenance windows, and CDN cache inconsistencies. If an issue is reported only by users in the Asia region while status.company.com shows all systems operational, this should be escalated to the infrastructure team for region-specific investigation.",
+    "applies_to_plans": ["free", "pro", "enterprise"],
+    "guideline": {
+      "action": "route_to_specialist",
+      "conditions": "Route to infrastructure/DevOps team for region-specific issues. If Enterprise customer, also escalate via Enterprise SLA process."
+    }
+  }
+]

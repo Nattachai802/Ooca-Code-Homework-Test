@@ -1,0 +1,71 @@
+[
+  {
+    "ticket_id": "TKT-001",
+    "customer_email": "sarah@example.com",
+    "subject": "Payment failed during upgrade - multiple charges",
+    "messages": [
+      {
+        "timestamp": "2026-02-13T06:00:00Z",
+        "content": "My payment failed when I tried to upgrade to Pro. Can you check what's wrong?"
+      },
+      {
+        "timestamp": "2026-02-13T07:00:00Z",
+        "content": "I tried again with a different card. Now I see TWO pending charges but my account still shows Free plan??"
+      },
+      {
+        "timestamp": "2026-02-13T08:00:00Z",
+        "content": "Okay this is getting ridiculous. Just checked my bank app - I have THREE charges of $29.99 now. None of them refunded. And I STILL don't have Pro access."
+      },
+      {
+        "timestamp": "2026-02-13T09:00:00Z",
+        "content": "HELLO?? Is anyone there??? I need this fixed NOW. I have a presentation in 2 hours and I need the Pro export features. If these charges aren't reversed by end of day I'm disputing all of them with my bank."
+      }
+    ]
+  },
+  {
+    "ticket_id": "TKT-002",
+    "customer_email": "somchai@enterprise.co.th",
+    "subject": "System Error 500 - Cannot access platform",
+    "messages": [
+      {
+        "timestamp": "2026-02-13T07:00:00Z",
+        "content": "ระบบเข้าไม่ได้ครับ ขึ้น error 500"
+      },
+      {
+        "timestamp": "2026-02-13T07:30:00Z",
+        "content": "ลองหลายเครื่องแล้ว ทั้ง Chrome, Safari, Firefox ผลเหมือนกันหมด เพื่อนร่วมงานก็เข้าไม่ได้เหมือนกัน"
+      },
+      {
+        "timestamp": "2026-02-13T08:15:00Z",
+        "content": "ตอนนี้ลูกค้าโวยเข้ามาเยอะมาก เรามี demo กับลูกค้ารายใหญ่บ่ายนี้ ถ้าระบบไม่กลับมา deal นี้อาจจะหลุด"
+      },
+      {
+        "timestamp": "2026-02-13T09:00:00Z",
+        "content": "เช็ค status.company.com แล้ว บอกว่า all systems operational แต่เราใช้งานไม่ได้จริงๆ ช่วยเช็คให้หน่อยได้ไหมครับ region Asia มีปัญหาหรือเปล่า?"
+      }
+    ]
+  },
+  {
+    "ticket_id": "TKT-003",
+    "customer_email": "alex@example.com",
+    "subject": "Dark mode not working on Pro plan",
+    "messages": [
+      {
+        "timestamp": "2026-02-11T10:00:00Z",
+        "content": "Hey, just wondering if you support dark mode? No rush 😊"
+      },
+      {
+        "timestamp": "2026-02-12T10:00:00Z",
+        "content": "Thanks for the reply! Oh nice, so it's in Settings > Appearance. Found it! But hmm I'm on Pro plan and I only see 'Light' and 'System Default' options. No dark mode toggle?"
+      },
+      {
+        "timestamp": "2026-02-12T13:00:00Z",
+        "content": "Okay so I switched to 'System Default' and my Mac is set to dark mode, but your app still shows light theme. Is this a bug or am I missing something?"
+      },
+      {
+        "timestamp": "2026-02-13T10:00:00Z",
+        "content": "Also random question while I have you - is there a way to schedule dark mode? Like auto-switch at 6pm? Some apps have that. Would be cool if you guys added it 😄"
+      }
+    ]
+  }
+]
