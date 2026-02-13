@@ -15,6 +15,10 @@ _kb_store: KnowledgeBaseStore | None = None
 
 
 def _get_kb_store() -> KnowledgeBaseStore:
+    """
+    ฟังก์ชันช่วยสำหรับเรียกใช้งาน KnowledgeBaseStore (Singleton Pattern)
+    จะสร้าง instance ใหม่เฉพาะครั้งแรกที่เรียกใช้
+    """
     global _kb_store
     if _kb_store is None:
         _kb_store = KnowledgeBaseStore()
@@ -22,10 +26,16 @@ def _get_kb_store() -> KnowledgeBaseStore:
 
 
 def fetch_customer_data(email: str) -> dict[str, Any]:
+    """
+    ดึงข้อมูลลูกค้าจากอีเมล:
+    1. อ่านไฟล์ customers.json เพื่อหาข้อมูลส่วนตัว
+    2. อ่านไฟล์ plan_tiers.json เพื่อดูรายละเอียดแพ็กเกจ (SLA, Priority)
+    """
     customers_path = DATA_DIR / "customers.json"
     with open(customers_path, encoding="utf-8") as f:
         customers = json.load(f)
 
+    # ค้นหาลูกค้าตามอีเมล
     customer = next((c for c in customers if c["email"] == email), None)
     if customer is None:
         return {"error": "not_found", "message": f"No customer found with email: {email}"}
@@ -34,9 +44,11 @@ def fetch_customer_data(email: str) -> dict[str, Any]:
     with open(tiers_path, encoding="utf-8") as f:
         tiers = json.load(f)
 
+    # ดึงข้อมูล Plan Tier (เช่น Pro, Enterprise, Free)
     plan_key = customer.get("plan", "free")
     tier_info = tiers.get(plan_key, {})
 
+    # รวมข้อมูลลูกค้า + ข้อมูล Plan เตรียมส่งกลับ
     return {
         **customer,
         "plan_details": {
@@ -51,12 +63,16 @@ def fetch_customer_data(email: str) -> dict[str, Any]:
 
 
 def query_knowledge_base(query: str) -> list[dict[str, Any]]:
+    """
+    ค้นหาข้อมูลใน Knowledge Base (KB) โดยใช้ Vector Search
+    """
     store = _get_kb_store()
     results = store.search(query=query, n_results=3)
     logger.info("KB search for '%s' returned %d results.", query, len(results))
     return results
 
 
+# กำหนด Schema ของ Tools เพื่อส่งให้ LLM รู้ว่ามีฟังก์ชันอะไรให้ใช้บ้าง (OpenAI format)
 TOOL_SCHEMAS: list[dict[str, Any]] = [
     {
         "type": "function",
@@ -104,6 +120,7 @@ TOOL_SCHEMAS: list[dict[str, Any]] = [
     },
 ]
 
+# ตัวแปรสำหรับ map ชื่อฟังก์ชัน (string) ไปยังฟังก์ชันจริง (python callable)
 TOOL_DISPATCH: dict[str, Any] = {
     "fetch_customer_data": fetch_customer_data,
     "query_knowledge_base": query_knowledge_base,

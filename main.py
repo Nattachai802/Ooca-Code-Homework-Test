@@ -42,14 +42,12 @@ def print_tool_traces(response: AgentResponse) -> None:
     )
 
     for i, trace in enumerate(response.tool_traces, 1):
-        # Tool call header
         console.print(
             f"\n  [bold cyan]Tool Call #{i}:[/bold cyan] "
             f"[yellow]{trace.tool_name}[/yellow]"
             f"({json.dumps(trace.arguments, ensure_ascii=False)})"
         )
 
-        # Tool result — show key info only
         if trace.tool_name == "fetch_customer_data":
             data = trace.result
             if "error" in data:
@@ -110,14 +108,11 @@ def print_result(response: AgentResponse) -> None:
     """Pretty-print the triage result using rich."""
     result = response.result
 
-    # --- Header ---
     console.print()
     console.rule(f"[bold white] TRIAGE RESULT — {result.ticket_id} [/bold white]", style="bold blue")
 
-    # --- Tool Traces (Agent Reasoning) ---
     print_tool_traces(response)
 
-    # --- Analysis ---
     a = result.analysis
     urgency_colors = {"critical": "red bold", "high": "yellow bold", "medium": "cyan", "low": "green"}
     sentiment_colors = {"angry": "red", "frustrated": "yellow", "neutral": "white", "positive": "green"}
@@ -143,7 +138,6 @@ def print_result(response: AgentResponse) -> None:
     console.print()
     console.print(analysis_table)
 
-    # --- Action ---
     act = result.action
     action_styles = {
         "auto_respond": ("green", "AUTO-RESPOND"),
@@ -165,11 +159,10 @@ def print_result(response: AgentResponse) -> None:
     console.print(Panel(
         action_content,
         title="Action Decision",
-        border_style=style.split()[0],  # use the base color
+        border_style=style.split()[0],
         box=box.ROUNDED,
     ))
 
-    # --- Suggested Reply (always shown) ---
     if act.suggested_reply:
         console.print()
         console.print(Panel(
@@ -179,7 +172,6 @@ def print_result(response: AgentResponse) -> None:
             box=box.ROUNDED,
         ))
 
-    # --- Auto Response Draft ---
     if act.auto_response:
         console.print()
         console.print(Panel(
@@ -189,7 +181,6 @@ def print_result(response: AgentResponse) -> None:
             box=box.ROUNDED,
         ))
 
-    # --- Customer Context ---
     console.print()
     console.print(Panel(
         result.customer_context,
@@ -198,13 +189,11 @@ def print_result(response: AgentResponse) -> None:
         box=box.ROUNDED,
     ))
 
-    # --- KB Articles ---
     if result.kb_articles_used:
         console.print(
             f"\n  [dim]KB Articles Used:[/dim] [cyan]{', '.join(result.kb_articles_used)}[/cyan]"
         )
 
-    # --- Token Usage ---
     console.print(
         f"\n  [dim]Token Usage:[/dim] "
         f"prompt={response.prompt_tokens}, "

@@ -7,73 +7,80 @@ from pydantic import BaseModel, Field, field_validator
 
 
 class TicketAnalysis(BaseModel):
-
+    """
+    โมเดลสำหรับวิเคราะห์ข้อมูล Ticket เบื้องต้น
+    """
     urgency: Literal["critical", "high", "medium", "low"] = Field(
-        description="Ticket urgency level based on impact and time sensitivity"
+        description="ระดับความเร่งด่วนของปัญหา"
     )
     sentiment: Literal["angry", "frustrated", "neutral", "positive"] = Field(
-        description="Customer emotional tone detected from messages"
+        description="อารมณ์ของลูกค้าที่ตรวจจับได้จากข้อความ"
     )
     issue_type: str = Field(
-        description="Category of the issue, e.g. 'billing', 'outage', 'bug', 'feature_request'"
+        description="หมวดหมู่ของปัญหา เช่น billing, outage, bug, feature_request"
     )
     product_area: str = Field(
-        description="Product area affected, e.g. 'payments', 'infrastructure', 'ui/appearance'"
+        description="ส่วนของ product ที่ได้รับผลกระทบ"
     )
     language: str = Field(
-        description="Primary language detected in the ticket, e.g. 'en', 'th'"
+        description="ภาษาที่ใช้ใน ticket (เช่น 'en', 'th')"
     )
     summary: str = Field(
-        description="One-line summary of the customer's issue"
+        description="สรุปปัญหาของลูกค้าใน 1 บรรทัด"
     )
 
 
 class SuggestedAction(BaseModel):
+    """
+    โมเดลสำหรับสิ่งที่ AI แนะนำให้ทำต่อ (Action)
+    """
     action: Literal["auto_respond", "route_to_specialist", "escalate_to_human"] = Field(
-        description="The recommended next action for this ticket"
+        description="การกระทำที่แนะนำ"
     )
     suggested_reply: str = Field(
-        description="Draft reply message to send to the customer, always provided regardless of action type"
+        description="ร่างข้อความตอบกลับลูกค้า (ต้องมีเสมอ ไม่ว่าจะเลือก action ไหน)"
     )
     reason: str = Field(
-        description="Explanation of why this action was chosen"
+        description="เหตุผลประกอบการตัดสินใจ"
     )
     priority_score: int = Field(
         ge=1, le=10,
-        description="Priority score from 1 (lowest) to 10 (highest)"
+        description="คะแนนความสำคัญ 1-10 (1=ต่ำสุด, 10=สูงสุด)"
     )
     auto_response: Optional[str] = Field(
         default=None,
-        description="Draft response to send if action is auto_respond"
+        description="ข้อความที่จะส่งตอบกลับอัตโนมัติ (กรณีเลือก action เป็น auto_respond)"
     )
     routing_department: Optional[str] = Field(
         default=None,
-        description="Target department if action is route_to_specialist"
+        description="แผนกที่จะส่งต่อ ticket ไปให้ (กรณีเลือก action เป็น route_to_specialist)"
     )
     escalation_notes: Optional[str] = Field(
         default=None,
-        description="Notes for the human agent if action is escalate_to_human"
+        description="หมายเหตุสำหรับการส่งต่อให้เจ้าหน้าที่คนต่อไป (กรณีเลือก action เป็น escalate_to_human)"
     )
 
 
 class TriageResult(BaseModel):
-    """Complete triage result combining analysis and action."""
+    """
+    โมเดลผลลัพธ์สุดท้ายของการจัดลำดับความสำคัญ (Triage) ที่รวมการวิเคราะห์และการกระทำเข้าด้วยกัน
+    """
 
-    ticket_id: str = Field(description="The ticket identifier")
-    analysis: TicketAnalysis = Field(description="Extracted ticket analysis")
-    action: SuggestedAction = Field(description="Recommended action")
+    ticket_id: str = Field(description="รหัส Ticket")
+    analysis: TicketAnalysis = Field(description="ผลการวิเคราะห์ Ticket")
+    action: SuggestedAction = Field(description="Action ที่แนะนำ")
     customer_context: str = Field(
-        description="Summary of customer info relevant to this ticket"
+        description="สรุปข้อมูลลูกค้าที่เกี่ยวข้องกับการตัดสินใจนี้"
     )
     kb_articles_used: list[str] = Field(
         default_factory=list,
-        description="List of KB article IDs that were referenced"
+        description="รายชื่อ ID ของบทความใน Knowledge Base ที่ถูกใช้อ้างอิง"
     )
 
     @field_validator("customer_context", mode="before")
     @classmethod
     def coerce_customer_context(cls, v):
-        """Convert dict to JSON string if LLM returns an object instead of string."""
+        """แปลง dict เป็น JSON string ถ้า LLM เผลอส่ง Object มาแทน String"""
         if isinstance(v, dict):
             return json.dumps(v, ensure_ascii=False)
         return v
